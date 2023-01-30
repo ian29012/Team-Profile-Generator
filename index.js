@@ -1,22 +1,21 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const Employee = require('./lib/generator.js')
-const employeeQues = require('./lib/question.js');
-
-// function to write README file
-// function writeToFile(fileName, data) {
-//     data.employeeId = new Employee();
-//         fs.writeFile(fileName, data.employeeId.console(data), (err) =>
-//         err ? console.error(err) : console.log('Success! employee was generated!'));
-//   }
+const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/generator.js');
+const Intern = require('./lib/generator.js');
+const Employee = require('./lib/generator.js');
+const roleQues = require('./lib/question.js');
+const managerQues = require('./lib/managerQues.js');
+const engineerQues = require('./lib/question.js');
+const internQues = require('./lib/question.js');
 
 // // function to initialize program
 function init() {
-    inquirer.prompt(employeeQues)
+    inquirer.prompt(managerQues)
     .then((data) => {
         if (!data.confirm){
-        data.employeeId = new Employee(data);
-        data.employeeId.console();
+        data.employeeId = new Manager(data);
+        console.log(data.employeeId.getRole())
         } else {
             return init()
         }
