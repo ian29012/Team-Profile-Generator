@@ -1,10 +1,10 @@
-const employee = require('./lib/employee');
+const fs = require('fs');
+const inquirer = require("inquirer");
+const employeeQues = require('./lib/employee.js');
 
-Start()
 
-{
-    type: 'list',
-    choices: ['Engineer', 'Intern', 'Manager'],
-    message: 'Which type of team member would you like to add',
-    name: 'type',
+function init() {
+    inquirer.prompt(employeeQues)
+    .then((response) => {})
 }
+init()
