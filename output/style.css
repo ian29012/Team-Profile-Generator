@@ -5,7 +5,7 @@
     }
     
     .team-heading {
-        background-color: rgb(249, 83, 83);
+        background-color: #197278;
         margin: 7px;
         height: 110px;
         align-items: center;
@@ -23,7 +23,7 @@
     }
 
     .card-header {
-        background-color: rgb(249, 83, 83);
+        background-color: #197278;
         border-radius: 15px;
         color: aliceblue;
     }

@@ -32,7 +32,7 @@ function ques(question, method)  {
             console.log(employee)
             console.log("Team list will be generate")
             fs.writeFile(outputPath, render(employee),(err) => 
-            err ? console.log("err") : console.log("success"))
+            err ? console.log("err") : console.log("Success to generate, please checkout the output file."))
         }
     });
 }
