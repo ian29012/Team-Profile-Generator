@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require("path");
 const inquirer = require('inquirer');
 const Employee = require('./lib/Employee.js');
 const Manager = require('./lib/Manager.js');
@@ -10,73 +11,50 @@ const managerQues = require('./lib/ManagerQues.js');
 const engineerQues = require('./lib/EngineerQues');
 const internQues = require('./lib/InternQues');
 
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+
+const render = require("./src/page-template.js");
+
 const employee = []
 
-// // function to initialize program
-function init() {
-    inquirer.prompt(managerQues)
+// function to initialize program
+const ques = function(question, method)  {
+    inquirer.prompt(question)
     .then((data) => {
-        data.employeeId = new Manager(data);
+        data.employeeId = new method(data);
         employee.push(data.employeeId);
         console.log(data.employeeId);
         console.log("-------------")
-        console.log(employee)
 
         if (data.confirm){
             role()
+        } else {
             console.log(employee)
+            fs.writeFile(outputPath,render(employee),(err) => 
+            err ? console.log("err") : console.log("success"))
         }
     });
 }
 
-function engineer() {
-    inquirer.prompt(engineerQues)
-    .then((data) => {
-        data.employeeId = new Engineer(data);
-        employee.push(data.employeeId);
-        console.log(data.employeeId)
-        console.log("-------------")
-        console.log(employee)
-
-        if (data.confirm){
-            role()
-            console.log(employee)
-        }
-    });
-}
-
-function intern() {
-    inquirer.prompt(internQues)
-    .then((data) => {
-        data.employeeId = new Intern(data);
-        employee.push(data.employeeId);
-        console.log(data.employeeId)
-        console.log("-------------")
-        console.log(employee)
-
-        if (data.confirm){
-            role()
-            console.log(employee)
-        }
-    });
-}
-
+// switch different question for the role
 function role(){
     inquirer.prompt(roleQues)
     .then((response) => {
         switch (response.employeeRole) {
             case 'Manager' :
-            init();
+            ques(managerQues, Manager);
             break;
             case 'Engineer' :
-            engineer();
+            ques(engineerQues, Engineer);
             break;
             case 'Intern' :
-            intern();
+            ques(internQues, Intern);
             break;
             }
     })
 }
 
 
-init()
+// init()
+ques(managerQues, Manager)
