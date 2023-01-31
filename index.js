@@ -16,19 +16,29 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+// create the array container for HTML render
 let employee = [] ;
 
-// function to initialize program
+// function to initialize program as manager
 function ques(question, method)  {
     inquirer.prompt(question)
     .then((data) => {
+
+        // access the data of ( [0]name [1]id  [2]email [3]number / github / school )
         employee.push(new method(Object.values(data)[0], Object.values(data)[1], Object.values(data)[2], Object.values(data)[3]));
+
+        // let the user review the data
         console.log(employee);
         console.log("-------------")
 
+        // confirm the user continues to build the team.
         if (data.confirm){
+
+        // if yes, call the role switcher
             role()
         } else {
+
+        // if no, review all the data and generate it as a HTML
             console.log(employee)
             console.log("Team list will be generate")
             fs.writeFile(outputPath, render(employee),(err) => 

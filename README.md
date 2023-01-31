@@ -13,7 +13,7 @@ This application will take in information about employees on a software engineer
       
 1. Download the Team-Profile-Generator.
 2. Open with VScode.
-3. Right the Start file and choose open with the terminal.
+3. Right click the Start file and choose open with the terminal.
           
 ## Usage
       
