@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require("path");
 const inquirer = require('inquirer');
-const Employee = require('./lib/Employee.js');
+
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern.js');
@@ -16,22 +16,22 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
-const employee = []
+let employee = [] ;
 
 // function to initialize program
-const ques = function(question, method)  {
+function ques(question, method)  {
     inquirer.prompt(question)
     .then((data) => {
-        data.employeeId = new method(data);
-        employee.push(data.employeeId);
-        console.log(data.employeeId);
+        employee.push(new method(Object.values(data)[0], Object.values(data)[1], Object.values(data)[2], Object.values(data)[3]));
+        console.log(employee);
         console.log("-------------")
 
         if (data.confirm){
             role()
         } else {
             console.log(employee)
-            fs.writeFile(outputPath,render(employee),(err) => 
+            console.log("Team list will be generate")
+            fs.writeFile(outputPath, render(employee),(err) => 
             err ? console.log("err") : console.log("success"))
         }
     });
